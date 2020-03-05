@@ -6,10 +6,10 @@ import org.hibernate.cfg.Configuration;
 
 import com.luv2code.hibernate.entity.Student;
 
-public class CreateStudentDemo {
+public class PrimaryKeyDemo {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		SessionFactory factory = new Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Student.class).buildSessionFactory();
@@ -17,15 +17,16 @@ public class CreateStudentDemo {
 		Session session = factory.getCurrentSession();
 		
 		try {
-			System.out.println("creating a new object");
-			Student student = new Student();
-			student.setFirstName("Isaac");
-			student.setLastName("Nuflo");
-			student.setEmail("isaac.nuflo21@gmail.com");
+			System.out.println("Creating 3 student objects...");
+			Student student = new Student("Isaac","Nuflo","isaac.nuflo21@gmail.com");
+			Student student1 = new Student("Elias","Nuflo","elias.nuflo21@gmail.com");
+			Student student2 = new Student("Jose","Nuflo","jose.nuflo21@gmail.com");
 			
 			session.beginTransaction();
 			
 			session.save(student);
+			session.save(student1);
+			session.save(student2);
 			
 			session.getTransaction().commit();
 			System.out.println("done");

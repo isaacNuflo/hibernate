@@ -1,12 +1,14 @@
 package com.luv2code.hibernate.demo;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.luv2code.hibernate.entity.Student;
 
-public class CreateStudentDemo {
+public class QueryStudentDemo {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -17,18 +19,20 @@ public class CreateStudentDemo {
 		Session session = factory.getCurrentSession();
 		
 		try {
-			System.out.println("creating a new object");
-			Student student = new Student();
-			student.setFirstName("Isaac");
-			student.setLastName("Nuflo");
-			student.setEmail("isaac.nuflo21@gmail.com");
 			
 			session.beginTransaction();
 			
-			session.save(student);
+			List<Student> theStudents = session.createQuery("from Student").getResultList();//query students
+			
+			//display the students
+			theStudents.forEach(s->System.out.println(s));
+			
+			theStudents = session.createQuery("from Student s where s.firstName='Isaac'").getResultList();
+			
+			theStudents.forEach(s->System.out.println(s));
 			
 			session.getTransaction().commit();
-			System.out.println("done");
+			System.out.println("Done");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {

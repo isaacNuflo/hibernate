@@ -6,7 +6,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.luv2code.hibernate.entity.Student;
 
-public class CreateStudentDemo {
+public class ReadStudentDemo {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -18,17 +18,28 @@ public class CreateStudentDemo {
 		
 		try {
 			System.out.println("creating a new object");
-			Student student = new Student();
-			student.setFirstName("Isaac");
-			student.setLastName("Nuflo");
-			student.setEmail("isaac.nuflo21@gmail.com");
+			Student tempStudent = new Student("Nathaly","Nuflo","nathaly.nuflo21@gmail.com");
 			
 			session.beginTransaction();
 			
-			session.save(student);
+			System.out.println("Saving the student...");
+			System.out.println(tempStudent);
+			session.save(tempStudent);
 			
 			session.getTransaction().commit();
 			System.out.println("done");
+			
+			System.out.println("Saved student. Generated id: "+ tempStudent.getId());
+			
+			session = factory.getCurrentSession();
+			session.beginTransaction();
+			
+			Student myStudent =  session.get(Student.class, tempStudent.getId());
+			
+			System.out.println("Get complete: " + myStudent);
+			
+			session.getTransaction().commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {

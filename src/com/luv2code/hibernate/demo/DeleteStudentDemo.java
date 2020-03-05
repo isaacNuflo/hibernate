@@ -6,7 +6,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.luv2code.hibernate.entity.Student;
 
-public class CreateStudentDemo {
+public class DeleteStudentDemo {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -17,15 +17,13 @@ public class CreateStudentDemo {
 		Session session = factory.getCurrentSession();
 		
 		try {
-			System.out.println("creating a new object");
-			Student student = new Student();
-			student.setFirstName("Isaac");
-			student.setLastName("Nuflo");
-			student.setEmail("isaac.nuflo21@gmail.com");
-			
 			session.beginTransaction();
 			
-			session.save(student);
+			Student myStudent = session.get(Student.class, 1);
+			
+			session.delete(myStudent);
+			
+			session.createQuery("delete from Student where id=2").executeUpdate();
 			
 			session.getTransaction().commit();
 			System.out.println("done");

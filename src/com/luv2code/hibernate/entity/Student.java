@@ -2,6 +2,8 @@ package com.luv2code.hibernate.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,17 +12,28 @@ import javax.persistence.Table;
 public class Student {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
 	@Column(name = "first_name")
-	private String fistName;
+	private String firstName;
 	
 	@Column(name = "last_name")
 	private String lastName;
 	
 	@Column(name = "email")
 	private String email;
+	
+	public Student() {
+		
+	}
+	
+	public Student(String firstName, String lastName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
 
 	public Integer getId() {
 		return id;
@@ -30,12 +43,12 @@ public class Student {
 		this.id = id;
 	}
 
-	public String getFistName() {
-		return fistName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFistName(String fistName) {
-		this.fistName = fistName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
@@ -56,7 +69,7 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", fistName=" + fistName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "Student [id=" + id + ", fistName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
 	
 	
